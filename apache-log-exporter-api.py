@@ -76,7 +76,7 @@ def warn(s):
 
 
 class ApacheLogExporter:
-    def __init__(self, fn="sample.log", port=9101, resolver={}, format=VHOST_COMBINED, ignoreExisting=True, enableHistogram=True):
+    def __init__(self, fn="sample.log", port=9181, resolver={}, format=VHOST_COMBINED, ignoreExisting=True, enableHistogram=True):
         self.fn = fn
         self.parser = LogParser("%v:%p %h %l %U %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"")
         self.resolver = resolver
