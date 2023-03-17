@@ -87,7 +87,7 @@ class ApacheLogExporter:
         # for each observe, and one added to for each observe.
         self.webRequestSummary = Summary('apache_web_request', 
                                    'Requests processed by the web server',
-                                   ['virtual_host', 'server_port', 'final_status', "remote_host"])
+                                   ['virtual_host', 'server_port', 'request_uri', 'final_status', "remote_host"])
 
         if self.enableHistogram:
             # lots of buckets really increases the size of the scrape
@@ -134,6 +134,7 @@ class ApacheLogExporter:
                     self.webRequestSummary.labels(
                         virtual_host=entry.virtual_host,
                         server_port=str(entry.server_port),
+                        request_uri=entry.request_uri,
                         final_status = str(entry.final_status),
                         remote_host = remote_host).observe(entry.bytes_out)
 
