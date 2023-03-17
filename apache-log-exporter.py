@@ -78,7 +78,7 @@ def warn(s):
 class ApacheLogExporter:
     def __init__(self, fn="sample.log", port=9101, resolver={}, format=VHOST_COMBINED, ignoreExisting=True, enableHistogram=True):
         self.fn = fn
-        self.parser = LogParser(format)
+        self.parser = LogParser("%v:%p %h %l %U %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"")
         self.resolver = resolver
         self.ignoreExisting = ignoreExisting
         self.enableHistogram = enableHistogram
@@ -168,12 +168,12 @@ def parseBool(s):
 
 def get_settings():
     cmdParser = argparse.ArgumentParser()
-    cmdParser.add_argument("--config_fn", "-f", type=str, default="/etc/apache-log-exporter.yaml", help="name of config file")
+    cmdParser.add_argument("--config_fn", "-f", type=str, default="/etc/apache-log-exporter-api.yaml", help="name of config file")
     args = cmdParser.parse_args(sys.argv[1:])
 
     defaults = {
-        "input.filename": "apache-log-exporter.yaml",
-        "input.format": VHOST_COMBINED,
+        "input.filename": "apache-log-exporter-api.yaml",
+        "input.format": "%v:%p %h %l %U %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"",
         "input.ignoreExisting": "true",
         "output.port": 9100,
         "resolver": {"127.0.0.1": "localhost",
