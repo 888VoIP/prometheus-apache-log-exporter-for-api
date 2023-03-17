@@ -176,7 +176,7 @@ def get_settings():
         "input.filename": "apache-log-exporter-api.yaml",
         "input.format": "%v:%p %h %l %U %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"",
         "input.ignoreExisting": "true",
-        "output.port": 9100,
+        "output.port": 9181,
         "resolver": {"127.0.0.1": "localhost",
                      "127.0.1.1": "localhost"},
     }
@@ -210,7 +210,7 @@ def main():
     if len(sys.argv) == 2:
         config_fn = sys.argv[1]
     else:
-        config_fn = "/etc/apache-log-exporter.yaml"
+        config_fn = "/etc/apache-log-exporter-api.yaml"
 
     settings = get_settings()
     print("settings: %s" % settings, file=sys.stderr)
